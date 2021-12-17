@@ -1,6 +1,9 @@
 import ProductCategoryRow from "./ProductCategoryRow";
 import ProductRow from "./ProductRow";
-import PRODUCTS from "../Data/products";
+
+type Props = {
+  products: any[];
+};
 
 type ProductforCategory = {
   category: string;
@@ -9,8 +12,8 @@ type ProductforCategory = {
 
 type List = ProductforCategory[];
 
-export default function ProductTable() {
-  const list = PRODUCTS.reduce((result: List, current) => {
+const ProductTable = ({ products }: Props) => {
+  const list = products.reduce((result: List, current) => {
     const { category, ...res } = current;
     const index = result.map((item) => item.category).indexOf(category);
     const ifNewCategory = result.length === 0 ? true : index === -1;
@@ -48,4 +51,6 @@ export default function ProductTable() {
       <tbody>{displayList}</tbody>
     </table>
   );
-}
+};
+
+export default ProductTable;
