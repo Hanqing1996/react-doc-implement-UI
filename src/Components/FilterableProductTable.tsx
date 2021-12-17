@@ -8,11 +8,16 @@ type Props = {
 
 export default function FilterableProductTable({ products }: Props) {
   const [filterText, setFilterText] = useState("");
-  const [inStockOnly, setInStockOnly] = useState(true);
+  const [inStockOnly, setInStockOnly] = useState(false);
 
   return (
     <div>
-      <SearchBar filterText={filterText} inStockOnly={inStockOnly} />
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange={setFilterText}
+        onInStockOnlyChange={setInStockOnly}
+      />
       <ProductTable
         products={products}
         filterText={filterText}
