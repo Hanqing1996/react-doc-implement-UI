@@ -1,12 +1,23 @@
 import SearchBar from "./SearchBar/SearchBar";
 import ProductTable from "./ProductTable";
-import PRODUCTS from "../Data/products";
+import { useState } from "react";
 
-export default function FilterableProductTable() {
+type Props = {
+  products: any[];
+};
+
+export default function FilterableProductTable({ products }: Props) {
+  const [filterText, setFilterText] = useState("");
+  const [inStockOnly, setInStockOnly] = useState(true);
+
   return (
     <div>
-      <SearchBar />
-      <ProductTable products={PRODUCTS} />
+      <SearchBar filterText={filterText} inStockOnly={inStockOnly} />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
     </div>
   );
 }

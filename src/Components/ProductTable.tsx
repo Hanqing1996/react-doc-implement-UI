@@ -3,6 +3,8 @@ import ProductRow from "./ProductRow";
 
 type Props = {
   products: any[];
+  filterText: string;
+  inStockOnly: boolean;
 };
 
 type ProductforCategory = {
@@ -12,8 +14,13 @@ type ProductforCategory = {
 
 type List = ProductforCategory[];
 
-const ProductTable = ({ products }: Props) => {
+const ProductTable = ({ products, filterText, inStockOnly }: Props) => {
   const list = products.reduce((result: List, current) => {
+    const filterIndex = current.name
+      .toLowerCase()
+      .indexOf(filterText.toLowerCase());
+    if (filterIndex === -1 || (inStockOnly && !current.stocked)) return result;
+
     const { category, ...res } = current;
     const index = result.map((item) => item.category).indexOf(category);
     const ifNewCategory = result.length === 0 ? true : index === -1;
